@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Bandage - Hackathone Project
+Introduction
+Welcome to the Bandage ecommerce brand repository! This project was created during a 7-day hackathon, where we dedicated our time and skills to bring this idea to life. Our project aims to fet the best place in e-commerce business market.
 
-## Getting Started
+Features
+Sanity Integration: Utilizes Sanity for content management and image URL handling.
 
-First, run the development server:
+Next.js: Built with the powerful Next.jsframework for server-side rendering and static site generation.
 
-```bash
+Styled Components: Implements styled-components for enhanced styling.
+
+Tailwind CSS: Uses Tailwind CSS for utility-first styling.
+
+Image Optimization: Employs sharp for efficient image processing.
+
+Installation
+To get a copy of this project up and running on your local machine, follow these steps:
+
+Clone the repository:
+
+sh
+git clone https://github.com/uzairshaikh346/Market_builder_hackthone/tree/main
+cd Market_builder_hackthone
+Install dependencies:
+
+sh
+npm install
+Set up environment variables:
+
+Create a .env.local file in the root directory and add the necessary environment variables as listed in .env.example.
+
+Run the project:
+
+sh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Usage
+After setting up the project, you can use it as follows:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Development Server: Run the development server with npm run dev and open http://localhost:3000 to view the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Build for Production: Use npm run build to create an optimized production build.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Environment Variables
+Ensure the following environment variables are set in your .env.local file:
 
-## Learn More
+plaintext
+NEXT_PUBLIC_SANITY_PROJECT_ID=w9z593jo
+NEXT_PUBLIC_SANITY_DATASET=production
+NEXT_PUBLIC_SANITY_TOKEN=skB1dzfUdtqtBuekaJJnObCPTBlJDMrCIFRcri0SXhhUnexO579y4o5bdQOX7wKsDwvQ6f0
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

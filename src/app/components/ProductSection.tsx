@@ -6,7 +6,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import checkout from "../Action/checkout";
 
-
 // Define the Product type
 interface Product {
   title: string;
@@ -21,22 +20,25 @@ function ProductSection() {
   const [product, setProduct] = useState<Product[]>([]);
   const [cart, setCart] = useState<Product[]>([]);
   const [ischekout, setCheckOut] = useState(false);
-  const [customerInfo , setCustomerInfo] = useState({
-    name : '',
-    email : '',
-    phone : ''
-  })
+  const [customerInfo, setCustomerInfo] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
   const [records, setRecords] = useState<Product[]>([]);
 
+  const HandleOnChange = (e: any) => {
+    const { name, value } = e.target;
+    setCustomerInfo({ ...customerInfo, [name]: value });
+  };
 
- const HandleOnChange = (e:any) => {
-  const { name, value } = e.target;
-  setCustomerInfo({ ...customerInfo, [name]: value });
-};
+  const handOnsubmit = () => {
+    checkout(cart, customerInfo);
+    alert(`Thank you for your purchase!
 
-  const handOnsubmit =() => {
-    checkout(cart,customerInfo)
-  }
+Order Number : ${Math.random()}
+We are processing your order. You will receive an email confirmation shortly. You can track your order in your account.`);
+  };
 
   const addToCart = (product: Product) => {
     setCart((prevCart) => [...prevCart, product]);
@@ -64,7 +66,7 @@ function ProductSection() {
              }`;
       const data: Product[] = await client.fetch(query);
       setProduct(data);
-      setRecords(data)
+      setRecords(data);
     } catch (error) {
       console.error("error", error);
     }
@@ -74,9 +76,13 @@ function ProductSection() {
     fetchProduct();
   }, []);
 
-  const filter = (e:any) => {
-    setRecords(product.filter(f => f.title.toLowerCase().includes(e.target.value.toLowerCase())))
-  }
+  const filter = (e: any) => {
+    setRecords(
+      product.filter((f) =>
+        f.title.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    );
+  };
 
   return (
     <section className="text-gray-600 body-font">
@@ -92,23 +98,28 @@ function ProductSection() {
             Problems trying to resolve the conflict between
           </p>
         </div>
-        <input className="w-full py-2 text-lg rounded-md px-5 mb-3" type="text" onChange={filter} placeholder="Search Product" />
+        <input
+          className="w-full py-2 text-lg rounded-md px-5 mb-3"
+          type="text"
+          onChange={filter}
+          placeholder="Search Product"
+        />
         <div className="flex flex-wrap -m-4">
           {records.slice(0, 20).map((product) => (
-            <Link
-            href={`/productDetail/${product._id}`}
-            key={product._id} // key prop added here
-            className="lg:w-1/4 md:w-1/2 p-4 w-full"
-          >
-            <div  >
+            <div
+              key={product._id}
+              className="lg:w-1/4 md:w-1/2 p-4 w-full transform transition duration-300 hover:scale-105"
+            >
               <div className="block relative h-[430px] w-full rounded overflow-hidden mx-auto">
-                <Image
-                  alt="ecommerce"
-                  className="object-cover object-center w-full h-full block"
-                  src={product.image_url}
-                  layout="fill"
-                  objectFit="cover"
-                />
+                <Link href={`/productDetail/${product._id}`}>
+                  <Image
+                    alt="ecommerce"
+                    className="object-cover object-center w-full h-full block"
+                    src={product.image_url}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                </Link>
               </div>
               <div className="mt-4 text-left">
                 <span className="text-gray-500 text-xs tracking-widest title-font mb-1">
@@ -131,19 +142,17 @@ function ProductSection() {
                     </div>
                   ))}
                 </p>
-                
-                
+
                 <button
                   className="mt-4 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
                   onClick={() => {
                     addToCart(product);
                   }}
-                  >
+                >
                   Add to Cart
                 </button>
               </div>
             </div>
-                  </Link>
           ))}
         </div>
 
@@ -191,32 +200,46 @@ function ProductSection() {
           CheckOut
         </button>
         {ischekout && (
-          <div className=" flex flex-col text-black text-xl gap-5 pt-3">
-            
-              <label>Name:</label>
-              <input type="text" id="name" name="name" required
+          <div className="flex flex-col text-gray-800 font-medium gap-4 p-6 bg-white rounded-lg shadow-md">
+            <label htmlFor="name">Name:</label>
+            <input
+              className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="text"
+              id="name"
+              name="name"
+              required
               onChange={HandleOnChange}
               value={customerInfo.name}
-               />
-              <br />
-              <br />
+            />
 
-              <label>Email:</label>
-              <input type="email" id="email" name="email" required
+            <label htmlFor="email">Email:</label>
+            <input
+              className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="email"
+              id="email"
+              name="email"
+              required
               onChange={HandleOnChange}
-              value={customerInfo.email} />
-              <br />
-              <br />
+              value={customerInfo.email}
+            />
 
-              <label>Phone:</label>
-              <input type="tel" id="phone" name="phone" required
+            <label htmlFor="phone">Phone:</label>
+            <input
+              className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              type="tel"
+              id="phone"
+              name="phone"
+              required
               onChange={HandleOnChange}
-              value={customerInfo.phone} />
-              <br />
-              <br />
+              value={customerInfo.phone}
+            />
 
-              <button onClick={handOnsubmit} className="bg-blue-500 text-white py-2 rounded-md">Submit</button>
-            
+            <button
+              onClick={handOnsubmit}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:shadow-outline"
+            >
+              Submit
+            </button>
           </div>
         )}
       </div>
