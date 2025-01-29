@@ -16,36 +16,7 @@ const Navbar2 = () => {
             </Link>
             
           </div>
-          <div className="flex md:hidden items-center space-x-4"> {/* Show on mobile */}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 text-gray-700"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 text-gray-700"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M2.25 3h1.375c.521 0 .941.419.941.941v10.118a.941.941 0 01-.941.941H2.25a.941.941 0 01-.941-.941V3.941c0-.522.42-.941.941-.941zM14.25 3h1.375c.521 0 .941.419.941.941v10.118a.941.941 0 01-.941.941H14.25a.941.941 0 01-.941-.941V3.941c0-.522.42-.941.941-.941zM21.75 3h1.375c.521 0 .941.419.941.941v10.118a.941.941 0 01-.941.941h-1.375a.941.941 0 01-.941-.941V3.941c0-.522.42-.941.941-.941z"
-              />
-            </svg>
-          </div>
+         
           <div className="hidden md:block ml-10"> {/* Show on desktop */}
               <div className="flex items-baseline space-x-4">
                 <Link href="/">
