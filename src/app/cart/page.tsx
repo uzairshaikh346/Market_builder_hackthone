@@ -96,24 +96,24 @@ function CartPage() {
   };
 
   return (
-    <div>
-      <Navbar/>
-      <div className="min-h-screen bg-gray-100 p-4">
-        <div className="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-          <h1 className="text-2xl font-bold mb-4">Your Cart</h1>
+    <div className="bg-gray-100 min-h-screen"> 
+      <Navbar />
+      <div className="container mx-auto p-4 md:p-8"> 
+        <div className="bg-white shadow-md rounded-lg p-6 md:p-8">
+          <h1 className="text-2xl font-bold mb-4 md:text-3xl">Your Cart</h1>
 
           {cartItem.length > 0 ? (
             <div className="space-y-4">
               {cartItem.map((item: Product, index: number) => (
-                <div key={index} className="flex items-center justify-between border-b pb-4">
-                  <div className="flex items-center space-x-4">
+                <div key={index} className="flex flex-col md:flex-row items-start md:items-center justify-between border-b pb-4 mb-4"> 
+                  <div className="flex items-center space-x-4 mb-2 md:mb-0">
                     <Image src={item.image_url} alt='Product Image' height={100} width={100} className="rounded" />
                     <div>
-                      <h2 className="text-lg font-medium">{item.title}</h2>
-                      <p className="text-sm text-gray-600">${item.price.toFixed(2)}</p>
+                      <h2 className="text-lg font-medium md:text-xl">{item.title}</h2>
+                      <p className="text-sm text-gray-600 md:text-base">${item.price.toFixed(2)}</p>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-center space-x-2 md:space-x-4"> 
                     <button
                       className="px-3 py-1 bg-gray-200 text-gray-800 rounded"
                       onClick={() => handleDecrement(item._id)}
@@ -127,10 +127,8 @@ function CartPage() {
                     >
                       +
                     </button>
-                  </div>
-                  <div>
                     <button
-                      className="text-red-500 hover:underline"
+                      className="text-red-500 hover:underline ml-4 md:ml-8" 
                       onClick={() => handleRemove(item._id)}
                     >
                       Remove
@@ -140,7 +138,7 @@ function CartPage() {
               ))}
 
               <div className="text-right mt-6">
-                <p className="text-xl font-bold">Total: ${calculateTotal().toFixed(2)}</p>
+                <p className="text-xl font-bold md:text-2xl">Total: ${calculateTotal().toFixed(2)}</p>
                 <button
                   className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"
                   onClick={handleProceed}
@@ -155,9 +153,9 @@ function CartPage() {
         </div>
 
         {isCheckout && (
-          <div className="mt-8 max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
-            <h2 className="text-xl font-bold mb-4">Checkout</h2>
-            <div className="flex flex-col text-gray-800 font-medium gap-4">
+          <div className="mt-8 bg-white shadow-md rounded-lg p-6 md:p-8"> 
+            <h2 className="text-xl font-bold mb-4 md:text-2xl">Checkout</h2>
+            <div className="flex flex-col text-gray-800 font-medium gap-4"> 
               <label htmlFor="name">Name:</label>
               <input
                 className="border border-gray-300 px-3 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"

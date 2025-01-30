@@ -1,7 +1,7 @@
 "use client"
 import { client } from "@/sanity/lib/client";
 import React from "react";
-import Navbar2 from "@/app/components/Navbar2";
+import Navbar from "@/app/components/Navbar2";
 import { addToCart } from "@/app/Action/action";
 import Swal from "sweetalert2";
 import { Product } from "@/app/type";
@@ -37,7 +37,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
   };
   return (
     <div>
-      <Navbar2 />
+      <Navbar />
       <section className="text-gray-600 body-font overflow-hidden">
   <div className="container px-5 py-24 mx-auto">
     <div className="lg:w-4/5 mx-auto flex flex-wrap">
