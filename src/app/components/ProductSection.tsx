@@ -3,56 +3,28 @@ import Image from "next/image";
 
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import checkout from "../Action/checkout";
-
-
-// Define the Product type
-interface Product {
-  title: string;
-  description: string;
-  price: number;
-  _id: string;
-  image_url: string;
-  tags: [];
-}
+import React, { useEffect, useState } from "react";
+import { Product } from "../type";
+import { addToCart } from "../Action/action";
+import Swal from "sweetalert2";
 
 function ProductSection() {
   const [product, setProduct] = useState<Product[]>([]);
-  const [cart, setCart] = useState<Product[]>([]);
-  const [ischekout, setCheckOut] = useState(false);
-  const [customerInfo , setCustomerInfo] = useState({
-    name : '',
-    email : '',
-    phone : ''
-  })
   const [records, setRecords] = useState<Product[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const itemsPerPage = 8;
 
+  const startNumber = (currentPage - 1) * itemsPerPage;
+  const endNumber = currentPage * itemsPerPage;
 
- const HandleOnChange = (e:any) => {
-  const { name, value } = e.target;
-  setCustomerInfo({ ...customerInfo, [name]: value });
-};
+  const fetchData = async () => {
+    const totalProducts = await client.fetch(`*[_type == "product"]`);
+    setTotalPages(Math.ceil(totalProducts.length / itemsPerPage));
 
-  const handOnsubmit =() => {
-    checkout(cart,customerInfo)
-  }
-
-  const addToCart = (product: Product) => {
-    setCart((prevCart) => [...prevCart, product]);
-    alert(`${product.title} has been added to your cart!`);
-  };
-
-  const removeFromCart = (index: number) => {
-    setCart((prevCart) => prevCart.filter((_, i) => i !== index));
-  };
-  const handleCheckOut = () => {
-    setCheckOut(!ischekout);
-  };
-  const fetchProduct = async () => {
     try {
       const query = `
-              *[_type=='product']{
+              *[_type=='product'][${startNumber}...${endNumber}]{
               title,
               description,
               price,
@@ -64,19 +36,57 @@ function ProductSection() {
              }`;
       const data: Product[] = await client.fetch(query);
       setProduct(data);
-      setRecords(data)
+      setRecords(data);
     } catch (error) {
       console.error("error", error);
     }
   };
 
   useEffect(() => {
-    fetchProduct();
-  }, []);
+    fetchData();
+  }, [currentPage]);
 
-  const filter = (e:any) => {
-    setRecords(product.filter(f => f.title.toLowerCase().includes(e.target.value.toLowerCase())))
+  const filter = (e: any) => {
+    setRecords(
+      product.filter((f) =>
+        f.title.toLowerCase().includes(e.target.value.toLowerCase())
+      )
+    );
+  };
+
+  const handleNext = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handlePageClick = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
   }
+
+  const handleAddToCard = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    addToCart(product);
+    Swal.fire({
+      position: "top-right",
+      icon: "success",
+      title: `${product.title} added to cart`,
+      showConfirmButton: false,
+      timer: 1000,
+    });
+  };
+ 
 
   return (
     <section className="text-gray-600 body-font">
@@ -92,23 +102,25 @@ function ProductSection() {
             Problems trying to resolve the conflict between
           </p>
         </div>
-        <input className="w-full py-2 text-lg rounded-md px-5 mb-3" type="text" onChange={filter} placeholder="Search Product" />
+        <input
+          className="w-full py-2 text-lg rounded-md px-5 mb-3"
+          type="text"
+          onChange={filter}
+          placeholder="Search Product"
+        />
         <div className="flex flex-wrap -m-4">
           {records.slice(0, 20).map((product) => (
-            <Link
-            href={`/productDetail/${product._id}`}
-            key={product._id} // key prop added here
-            className="lg:w-1/4 md:w-1/2 p-4 w-full"
-          >
-            <div  >
+            <div key={product._id} className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-md">
               <div className="block relative h-[430px] w-full rounded overflow-hidden mx-auto">
-                <Image
-                  alt="ecommerce"
-                  className="object-cover object-center w-full h-full block"
-                  src={product.image_url}
-                  layout="fill"
-                  objectFit="cover"
-                />
+               
+                  <Image
+                    alt="ecommerce"
+                    className="object-cover object-center w-full h-full block"
+                    src={product.image_url}
+                    layout="fill"
+                    objectFit="cover"
+                  />
+                
               </div>
               <div className="mt-4 text-left">
                 <span className="text-gray-500 text-xs tracking-widest title-font mb-1">
@@ -117,10 +129,7 @@ function ProductSection() {
                 <h2 className="text-gray-900 title-font text-lg font-medium line-clamp-2">
                   {product.description}
                 </h2>
-                <p className="mt-1">
-                  ${product.price}{" "}
-                  {/* <span className="line-through">{product.oldPrice}</span> */}
-                </p>
+                <p className="mt-1">${product.price}</p>
                 <p className="flex gap-2 flex-wrap">
                   {product.tags.map((item, index) => (
                     <div
@@ -131,94 +140,67 @@ function ProductSection() {
                     </div>
                   ))}
                 </p>
-                
-                
+                  <div className="flex justify-around">
+
                 <button
-                  className="mt-4 w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700"
-                  onClick={() => {
-                    addToCart(product);
+                  className="mt-4 px-3 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200  text-white py-2 rounded-md "
+                  onClick={(e) => {
+                    handleAddToCard(e, product);
                   }}
                   >
                   Add to Cart
                 </button>
+                <Link href={`/productDetail/${product._id}`}>
+                <button
+                  className="mt-4 px-3 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200  text-white py-2 rounded-md "
+                  
+                  >Product Detail</button>
+                </Link>
+                  </div>
+
+                
               </div>
             </div>
-                  </Link>
           ))}
         </div>
 
-        <div className="bg-gray-100 p-4 rounded-md mt-8">
-          <h1 className="text-xl font-semibold mb-4">Cart Summary</h1>
-          {cart.length > 0 ? (
-            <ul>
-              {cart.map((item, index) => (
-                <li
-                  key={index}
-                  className="flex items-center justify-between py-2 border-b"
-                >
-                  <div>
-                    <p className="font-medium">{item.title}</p>
-                    <p className="text-gray-500 text-sm">${item.price}</p>
-                  </div>
-                  <div className="flex gap-6">
-                    <Image
-                      height={50}
-                      width={50}
-                      className="rounded-md"
-                      src={item.image_url}
-                      alt={item.title}
-                    />
-                    <button
-                      onClick={() => removeFromCart(index)}
-                      className="ml-2 px-2 py-1 bg-red-500 text-white rounded-md hover:bg-red-600"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="text-gray-500">
-              Your Cart is empty please add products
-            </p>
-          )}
+  
+
+        <div className="flex justify-center my-10">
+          <button
+            onClick={handlePrev}
+            className="bg-blue-400 p-2 mx-2"
+            disabled={currentPage === 1}
+          >
+            Prev
+          </button>
+
+          {pageNumbers.map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageClick(page)}
+              className={`p-2 mx-1 ${
+                currentPage === page ? "bg-blue-600 text-white" : "bg-blue-200"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+
+          <button
+            onClick={handleNext}
+            className="bg-blue-400 p-2 mx-2"
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
         </div>
-        <button
-          onClick={handleCheckOut}
-          className="bg-blue-600 text-white w-full rounded-md py-2"
-        >
-          CheckOut
-        </button>
-        {ischekout && (
-          <div className=" flex flex-col text-black text-xl gap-5 pt-3">
-            
-              <label>Name:</label>
-              <input type="text" id="name" name="name" required
-              onChange={HandleOnChange}
-              value={customerInfo.name}
-               />
-              <br />
-              <br />
-
-              <label>Email:</label>
-              <input type="email" id="email" name="email" required
-              onChange={HandleOnChange}
-              value={customerInfo.email} />
-              <br />
-              <br />
-
-              <label>Phone:</label>
-              <input type="tel" id="phone" name="phone" required
-              onChange={HandleOnChange}
-              value={customerInfo.phone} />
-              <br />
-              <br />
-
-              <button onClick={handOnsubmit} className="bg-blue-500 text-white py-2 rounded-md">Submit</button>
-            
-          </div>
-        )}
+<Link href="/cart">
+      <button 
+                  className="mt-4 w-full px-3 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200  text-white py-2 rounded-md "
+      
+      >View cart</button>
+</Link>
       </div>
     </section>
   );

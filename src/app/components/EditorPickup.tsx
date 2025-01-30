@@ -1,7 +1,4 @@
-import ManImage from "@/app/imagess/manimage.jpg";
-import WomanImage from "@/app/imagess/womanimage.jpg";
-import Accessories from "@/app/imagess/accesoriesimage.jpg";
-import KidsImage from "@/app/imagess/kidsimage.jpg";
+import Link from "next/link";
 import Image from "next/image"; // Make sure to import Image
 import { client } from "@/sanity/lib/client";
 
@@ -32,15 +29,16 @@ async function EditorPick(){
       </div>
       <div className="flex flex-wrap -m-4">
    {products.slice(20, 25).map((banner: any, index : any) => (
-          <div key={index} className="p-4 md:w-1/4 sm:w-1/2 w-full">
+             <Link className="p-4 md:w-1/4 sm:w-1/2 w-full" href={`/productDetail/${banner._id}`} key={index}> {/* Moved key to Link for better accessibility */}
+     <div>
             <div className="relative w-full h-[500px] overflow-hidden">
-              <Image
+             <Image
                 src={banner.image_url}
                 alt={banner.alt}
                 layout="fill"
                 objectFit="cover"
                 className="absolute inset-0 w-full h-full"
-              />
+                />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="bg-white px-[48px] py-[12px] relative top-28">
                   <h2 className="text-black text-xl font-bold">
@@ -50,6 +48,7 @@ async function EditorPick(){
               </div>
             </div>
           </div>
+                </Link> 
         ))}
       </div>
     </div>

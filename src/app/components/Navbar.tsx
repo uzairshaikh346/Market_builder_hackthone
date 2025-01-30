@@ -1,16 +1,21 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
+import { getCartItems } from "../Action/action";
+import { Product } from "../type";
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+const [isOpen, setIsOpen] = useState(false);
+  const [cart, setCart] = useState<Product[]>([]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    setCart(getCartItems);
+  }, []);
 
   return (
     <div>
@@ -187,15 +192,15 @@ export default function Navbar() {
         </div>
       </div>
 
-    
-
       {/* navigation bar */}
 
       <header className="text-gray-600 body-font border-b border-gray-300 bg-white hidden md:flex">
         <div className="container mx-auto flex flex-wrap py-4 px-2 flex-col md:flex-row items-center">
+         <Link href="/">
           <h3 className="font-mono font-bold text-[24px] text-[#252B42]">
             Bandage
           </h3>
+         </Link>
           <nav className="md:ml-auto md:mr-auto flex flex-col md:flex-row flex-1 items-center text-base justify-center">
             <Link href="/" passHref>
               <span className="mb-2 md:mb-0 md:mr-5 hover:text-gray-900">
@@ -228,45 +233,51 @@ export default function Navbar() {
               </span>
             </Link>
           </nav>
-          <div className="flex items-center space-x-4 text-[#23A6F0]">
-            <Link href="/login" passHref>
-              <span className="hover:text-gray-900">Login / Register</span>
-            </Link>
-            <Link href="/notifications" passHref>
-              <span className="hover:text-gray-900">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  x="0px"
-                  y="0px"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 50 50"
-                >
-                  <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
-                </svg>
-              </span>
-            </Link>
-            <Link href="/wishlist" passHref>
-              <span className="hover:text-gray-900">
-                <img
-                  width="16"
-                  height="16"
-                  src="https://img.icons8.com/fluency-systems-regular/50/shopping-cart-loaded.png"
-                  alt="shopping-cart-loaded"
-                />
-              </span>
-            </Link>
-            <Link href="/cart" passHref>
-              <span className="hover:text-gray-900">
-                <img
-                  width="16"
-                  height="16"
-                  src="https://img.icons8.com/fluency-systems-regular/50/like--v1.png"
-                  alt="like--v1"
-                />
-              </span>
-            </Link>
-          </div>
+       <div className="flex items-center space-x-4 text-[#23A6F0]">
+  <Link href="/login">
+    <span className="hover:text-gray-900 hover:scale-110 transition-all duration-300">Login / Register</span>
+  </Link>
+  <Link href="/notifications">
+    <span className="hover:text-gray-900 hover:scale-110 transition-all duration-300">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px"
+        y="0px"
+        width="20"
+        height="20"
+        viewBox="0 0 50 50"
+      >
+        <path d="M 21 3 C 11.621094 3 4 10.621094 4 20 C 4 29.378906 11.621094 37 21 37 C 24.710938 37 28.140625 35.804688 30.9375 33.78125 L 44.09375 46.90625 L 46.90625 44.09375 L 33.90625 31.0625 C 36.460938 28.085938 38 24.222656 38 20 C 38 10.621094 30.378906 3 21 3 Z M 21 5 C 29.296875 5 36 11.703125 36 20 C 36 28.296875 29.296875 35 21 35 C 12.703125 35 6 28.296875 6 20 C 6 11.703125 12.703125 5 21 5 Z"></path>
+      </svg>
+    </span>
+  </Link>
+  <Link href="/cart">
+  <div className="flex items-center hover:text-gray-900 hover:scale-110 transition-all duration-300">
+
+    <span>
+      <img
+        width="20"
+        height="20"
+        src="https://img.icons8.com/fluency-systems-regular/50/shopping-cart-loaded.png"
+        alt="shopping-cart-loaded"
+        />
+    </span>
+      {cart.length > 0 && (
+        <div className="bg-red-500 py-[1px] px-[4px] text-white text-sm rounded-md">{cart.length}</div>
+      )}
+      </div>
+  </Link>
+  <Link href="/cart" passHref>
+    <span className="hover:text-gray-900 hover:scale-110 transition-all duration-300">
+      <img
+        width="20"
+        height="20"
+        src="https://img.icons8.com/fluency-systems-regular/50/like--v1.png"
+        alt="like--v1"
+      />
+    </span>
+  </Link>
+</div>
         </div>
       </header>
     </div>

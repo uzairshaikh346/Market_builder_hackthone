@@ -1,15 +1,5 @@
 import { client } from '@/sanity/lib/client';
-import React from 'react'
-
-
-interface Product {
-  title: string;
-  description: string;
-  price: number;
-  _id: string;
-  image_url: string;
-  tags: [];
-}
+import { Product } from '../type';
 interface Customer {
 name : string,
 email : string,
