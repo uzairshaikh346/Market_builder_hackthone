@@ -15,7 +15,7 @@ export default function LoginComponent() {
                     <div className="flex items-center justify-center">
                         <SignedIn>
                             <UserButton />
-                            
+
                         </SignedIn>
                     </div>
                     <SignedOut>
@@ -72,7 +72,7 @@ export default function LoginComponent() {
                             </div>
                         </div>
                         <p className="mt-6 text-center text-gray-700">
-                            Don't have an account?{" "}
+                            Dont have an account?{" "}
                             <a
                                 href="#"
                                 className="font-medium text-indigo-600 hover:text-indigo-900"
