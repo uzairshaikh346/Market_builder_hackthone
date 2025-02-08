@@ -7,6 +7,7 @@ import { Product } from '../type';
 import { getCartItems, removeFromCart, updateCartQuantity } from '../Action/action';
 import checkout from "../Action/checkout";
 import Navbar from '../components/Navbar';
+import { SignedIn, SignedOut, SignIn, UserButton } from '@clerk/nextjs';
 
 function CartPage() {
   const [cartItem, setCartItem] = useState<Product[]>([]);
@@ -139,12 +140,21 @@ function CartPage() {
 
               <div className="text-right mt-6">
                 <p className="text-xl font-bold md:text-2xl">Total: ${calculateTotal().toFixed(2)}</p>
+               <SignedOut>
+                <div className='flex flex-col items-center justify-center gap-3'>
+                <h1 className='md:text-3xl font-bold drop-shadow-xl text-blue-500 '>Sign for Checkout</h1>
+                <SignIn routing='hash'/>
+                </div>
+               </SignedOut>
+              <SignedIn>
+             
                 <button
                   className="mt-4 px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"
                   onClick={handleProceed}
-                >
+                  >
                   Proceed to Checkout
                 </button>
+                  </SignedIn>
               </div>
             </div>
           ) : (

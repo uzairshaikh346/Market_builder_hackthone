@@ -50,6 +50,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">{product.title}</h1>
         <p className="leading-relaxed line-clamp-5">{product.description}</p>
         <p className="title-font font-medium text-2xl mt-5 text-gray-900">Price: ${product.price}</p>
+        <div className="flex space-x-2 mt-2">
+                <span className="h-4 w-4 bg-green-500 rounded-full border border-white"></span>
+                <span className="h-4 w-4 bg-blue-500 rounded-full border border-white"></span>
+                <span className="h-4 w-4 bg-yellow-500 rounded-full border border-white"></span>
+                <span className="h-4 w-4 bg-pink-500 rounded-full border border-white"></span>
+                <span className="h-4 w-4 bg-indigo-600-300 rounded-full border border-white"></span>
+              </div>
         <button
                   className="mt-4 px-4 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200  text-white py-2 rounded-md "
                   onClick={(e) => {
