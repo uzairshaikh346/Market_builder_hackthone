@@ -5,7 +5,7 @@ import ContactSupport from '../components/ContactSupportSection'
 
 function Contact() {
   return (
-    <div>
+    <div className='bg-gray-200'>
       <Navbar2/>
       <GetInTouchSection/>
       <ContactSupport/>

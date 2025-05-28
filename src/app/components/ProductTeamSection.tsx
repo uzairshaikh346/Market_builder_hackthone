@@ -8,7 +8,6 @@ import member8 from "@/app/imagess/blogImages/team/member8.jpg";
 import member9 from "@/app/imagess/blogImages/team/member9.jpg";
 import Image from "next/image";
 
-
 const CardSection = () => {
   const data = [
     {
@@ -64,7 +63,7 @@ const CardSection = () => {
         <div className="flex flex-wrap -m-4">
           {data.map((item) => (
             <div key={item.title} className="p-4 lg:w-1/4 md:w-1/2">
-              <div className="h-full flex flex-col items-center text-center">
+              <div className="h-full flex flex-col items-center text-center transition-all duration-300 ease-in-out transform hover:scale-105 hover:shadow-lg rounded-lg p-4 hover:bg-gray-50">
                 <Image
                   alt="team"
                   className="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4"

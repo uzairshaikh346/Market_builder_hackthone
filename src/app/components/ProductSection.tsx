@@ -108,61 +108,58 @@ function ProductSection() {
           onChange={filter}
           placeholder="Search Product"
         />
-        <div className="flex flex-wrap -m-4">
-          {records.slice(0, 20).map((product) => (
-            <div key={product._id} className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-md">
-              <div className="block relative h-[430px] w-full rounded overflow-hidden mx-auto">
-               
-                  <Image
-                    alt="ecommerce"
-                    className="object-cover object-center w-full h-full block"
-                    src={product.image_url}
-                    layout="fill"
-                    objectFit="cover"
-                  />
-                
-              </div>
-              <div className="mt-4 text-left">
-                <span className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                  {product.title}
-                </span>
-                <h2 className="text-gray-900 title-font text-lg font-medium line-clamp-2">
-                  {product.description}
-                </h2>
-                <p className="mt-1">${product.price}</p>
-                <p className="flex gap-2 flex-wrap">
-                  {product.tags.map((item, index) => (
-                    <div
-                      className="bg-gray-400 text-gray-800 rounded-md px-2"
-                      key={index}
-                    >
-                      {item}
-                    </div>
-                  ))}
-                </p>
-                  <div className="flex justify-around">
-
-                <button
-                  className="mt-4 px-3 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200  text-white py-2 rounded-md "
-                  onClick={(e) => {
-                    handleAddToCard(e, product);
-                  }}
-                  >
-                  Add to Cart
-                </button>
-                <Link href={`/productDetail/${product._id}`}>
-                <button
-                  className="mt-4 px-3 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200  text-white py-2 rounded-md "
-                  
-                  >Product Detail</button>
-                </Link>
-                  </div>
-
-                
-              </div>
+      <div className="flex flex-wrap -m-4 ">
+  {records.slice(0, 20).map((product) => (
+    <div
+      key={product._id}
+      className="lg:w-1/4 md:w-1/2 p-4 w-full shadow-md transform transition duration-300 hover:scale-105 hover:shadow-lg"
+    >
+      <div className="block relative h-[430px] w-full rounded overflow-hidden mx-auto">
+        <Image
+          alt="ecommerce"
+          className="object-cover object-center w-full h-full block"
+          src={product.image_url}
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
+      <div className="mt-4 text-left">
+        <span className="text-gray-500 text-xs tracking-widest title-font mb-1">
+          {product.title}
+        </span>
+        <h2 className="text-gray-900 title-font text-lg font-medium line-clamp-2">
+          {product.description}
+        </h2>
+        <p className="mt-1">${product.price}</p>
+        <p className="flex gap-2 flex-wrap">
+          {product.tags.map((item, index) => (
+            <div
+              className="bg-gray-400 text-gray-800 rounded-md px-2"
+              key={index}
+            >
+              {item}
             </div>
           ))}
+        </p>
+        <div className="flex justify-around">
+          <button
+            className="mt-4 px-3 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200 text-white py-2 rounded-md"
+            onClick={(e) => {
+              handleAddToCard(e, product);
+            }}
+          >
+            Add to Cart
+          </button>
+          <Link href={`/productDetail/${product._id}`}>
+            <button className="mt-4 px-3 bg-gradient-to-r from-blue-400 to-purple-400 hover:scale-110 transition duration-200 text-white py-2 rounded-md">
+              Product Detail
+            </button>
+          </Link>
         </div>
+      </div>
+    </div>
+  ))}
+</div>
 
   
 

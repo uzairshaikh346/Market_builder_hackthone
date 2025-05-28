@@ -6,7 +6,7 @@ import FreeTrialSection from '../components/ProductFReeTrailSection'
 
 function Product() {
   return (
-    <div>
+    <div className='bg-gray-200'>
         <Navbar2/>
       <WhatWeDoSection/>
       <CardSection/>

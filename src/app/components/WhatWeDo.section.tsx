@@ -17,7 +17,7 @@ const WhatWeDoSection = () => {
             alt="Image 1"
             layout="fill"
             objectFit="cover"
-            className="rounded-lg"
+            className="rounded-lg hover:scale-105 transition-transform duration-300 ease-in-out"
           />
         </div>
         <div className="w-full md:w-1/2 h-[530px] relative mt-4 md:mt-0 md:ml-4">
@@ -26,7 +26,7 @@ const WhatWeDoSection = () => {
             alt="Image 2"
             layout="fill"
             objectFit="cover"
-            className="rounded-lg"
+            className="rounded-lg hover:scale-105 transition-transform duration-300 ease-in-out"
           />
         </div>
       </div>

@@ -4,7 +4,7 @@ import videocard from '@/app/imagess/aboutImages/Video card.png';
 
 const AboutBrandSection = () => {
   return (
-    <div className="container mx-auto px-4 md:px-12 lg:px-24 py-16"> 
+    <div className="container mx-auto px-4 md:px-12 lg:px-24 py-16 text-gray-600"> 
 
       <div className="flex flex-col md:flex-row justify-between mt-14">
         <div className="md:w-1/2 px-5 py-4">

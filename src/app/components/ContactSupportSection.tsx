@@ -9,7 +9,7 @@ const ContactSupport = () => {
           We help small businesses <br /> with big ideas
         </p>
         <div className="flex flex-col md:flex-row gap-3 justify-center items-center">
-          <div className="flex flex-col justify-center text-black w-[270px] py-9 font-semibold">
+          <div className="flex flex-col justify-center text-black w-[270px] py-9 font-semibold hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center gap-2">
               <img
                 width="80"
@@ -27,7 +27,7 @@ const ContactSupport = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col justify-center text-white bg-black w-[270px] py-9 font-semibold">
+          <div className="flex flex-col justify-center text-white bg-black w-[270px] py-9 font-semibold hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center gap-2">
               <img
                 width="80"
@@ -45,7 +45,7 @@ const ContactSupport = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col justify-center text-black w-[270px] py-9 font-semibold">
+          <div className="flex flex-col justify-center text-black w-[270px] py-9 font-semibold hover:scale-105 transition-transform duration-300">
             <div className="flex flex-col items-center gap-2">
               <img
                 width="80"
@@ -68,14 +68,14 @@ const ContactSupport = () => {
 
 
 
-        <div className="text-center mt-14">
+        <div className="text-center py-14 bg-gray-200">
           <p className="font-bold text-xl md:text-2xl lg:text-3xl">
             WE CANT WAIT TO MEET YOU
           </p>
           <h1 className="font-bold text-2xl md:text-4xl lg:text-5xl">
             Lets Talk
           </h1>
-          <button className="py-3 px-8 bg-[#23A6F0] rounded-md text-white mt-4">
+          <button className="py-3 px-8 bg-[#23A6F0] hover:bg-[#3b9dd6] rounded-md text-white mt-4">
             Try it for free
           </button>
         </div>

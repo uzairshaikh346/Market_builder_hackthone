@@ -9,7 +9,7 @@ import Navbar from '../components/Navbar'
 
 function shop() {
   return (
-    <div>
+    <div className='bg-slate-200'>
       <Navbar/>
       <ShopSection/>
       <FilterSection/>

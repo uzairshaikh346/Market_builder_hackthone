@@ -9,7 +9,7 @@ import Navbar from "./components/Navbar";
 
 export default function Home() {
   return (
-    <main>
+    <main className="bg-slate-200">
       <Navbar/>
       <Banner/>
       <EditorPick/>

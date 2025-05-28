@@ -121,34 +121,35 @@ const ShopProductSection = () => {
         </p>
       </div>
       <div className="flex flex-wrap -mx-4">
-        {items.map((item) => (
-          <div key={item.id} className="w-full md:w-1/2 lg:w-1/4 p-4">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="relative">
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  layout="responsive"
-                  width={720}
-                  height={600}
-                  className="rounded-lg"
-                />
-              </div>
-              <h2 className="text-lg font-medium text-gray-900 mt-4">
-                {item.alt}
-              </h2>
-              <p className="text-gray-500">{item.department}</p>
-              <p className="text-gray-500 line-through">{item.originalPrice}</p>
-              <p className="text-red-500 font-bold">{item.discountPrice}</p>
-              <div className="flex justify-center space-x-2 mt-2">
-                <span className="h-4 w-4 bg-green-500 rounded-full border border-white"></span>
-                <span className="h-4 w-4 bg-blue-500 rounded-full border border-white"></span>
-                <span className="h-4 w-4 bg-yellow-500 rounded-full border border-white"></span>
-              </div>
-            </div>
-          </div>
-        ))}
+  {items.map((item) => (
+    <div key={item.id} className="w-full md:w-1/2 lg:w-1/4 p-4">
+      <div className="bg-white p-6 rounded-lg shadow-lg transform transition duration-300 hover:scale-105 hover:shadow-xl">
+        <div className="relative">
+          <Image
+            src={item.src}
+            alt={item.alt}
+            layout="responsive"
+            width={720}
+            height={600}
+            className="rounded-lg"
+          />
+        </div>
+        <h2 className="text-lg font-medium text-gray-900 mt-4">
+          {item.alt}
+        </h2>
+        <p className="text-gray-500">{item.department}</p>
+        <p className="text-gray-500 line-through">{item.originalPrice}</p>
+        <p className="text-red-500 font-bold">{item.discountPrice}</p>
+        <div className="flex justify-center space-x-2 mt-2">
+          <span className="h-4 w-4 bg-green-500 rounded-full border border-white"></span>
+          <span className="h-4 w-4 bg-blue-500 rounded-full border border-white"></span>
+          <span className="h-4 w-4 bg-yellow-500 rounded-full border border-white"></span>
+        </div>
       </div>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };

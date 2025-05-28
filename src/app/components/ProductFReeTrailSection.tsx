@@ -11,7 +11,7 @@ const FreeTrialSection = () => {
               RELIT official consequent.
             </p>
             <div className="flex justify-center mb-4">
-              <button className="inline-flex text-white bg-[#23A6F0] border-0 py-2 px-6 focus:outline-none rounded text-lg">
+              <button className="inline-flex text-white bg-[#23A6F0] hover:bg-[#369bd6] border-0 py-2 px-6 focus:outline-none rounded text-lg">
                 Try it free now
               </button>
             </div>
